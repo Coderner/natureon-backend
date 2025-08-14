@@ -22,8 +22,9 @@ async function getAllProducts(req,res){
 
 //to create/add a new product
 async function createNewProduct(req, res){
-   const {name, description, price, inStock, quantity } = req.body;
-   const imagePaths = req.files.map(file => `/uploads/${file.filename}`);
+   console.log(req.files);
+   const {name, description, price, inStock, quantity, category, subcategory} = req.body;
+   const imagePaths = req?.files?.map(file => `/uploads/${file.filename}`);
 
    try{
         const response = await Product.create({
@@ -32,7 +33,9 @@ async function createNewProduct(req, res){
             images:  imagePaths,
             price: price,
             inStock: inStock,
-            quantity: quantity
+            quantity: quantity,
+            category: category,
+            subcategory: subcategory
         });
         return res.json({
             success:true, 
