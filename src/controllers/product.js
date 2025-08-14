@@ -22,12 +22,14 @@ async function getAllProducts(req,res){
 
 //to create/add a new product
 async function createNewProduct(req, res){
-   const {name, description, images, price, inStock, quantity } = req.body;
+   const {name, description, price, inStock, quantity } = req.body;
+   const imagePaths = req.files.map(file => `/uploads/${file.filename}`);
+
    try{
         const response = await Product.create({
             name: name,
             description: description,
-            images: images,
+            images:  imagePaths,
             price: price,
             inStock: inStock,
             quantity: quantity
@@ -79,6 +81,11 @@ async function getProductDetailsById(req,res){
 //to update a product given its id
 async function updateProduct(req,res){
     try {
+          if (req.files && req.files.length > 0) {
+            const newImagePaths = req.files.map(file => `/uploads/${file.filename}`);
+            // Merge or replace images. Here we replace:
+            req.body.images = newImagePaths;
+          };
           const updatedProduct = await Product.findByIdAndUpdate(
                req.params.id,
                req.body,
