@@ -1,19 +1,26 @@
 const Product = require("../models/Product");
 
-//to fetch a list of all products
-async function getAllProducts(req,res){
+//to fetch a list of products
+async function getProducts(req,res){
+
+   const { category, subcategory } = req.query;
+   let filter = {};
+
+   if (category) filter.category = category;
+   if (subcategory) filter.subcategory = subcategory;
+
    try{
-        const allProducts = await Product.find({});
+        const allProducts = await Product.find(filter);
         return res.json({
           success:true, 
-          message:"List of all Products",
+          message:"List of Products",
           data: allProducts,
           error: null
      });
    }catch(error){
         return res.status(500).json({
           success:false, 
-          message: "Error fetching all products",
+          message: "Error fetching products",
           data: null,
           error: `${error}`
      });
@@ -150,7 +157,7 @@ async function deleteProduct(req,res){
 }
 
 module.exports = {
-    getAllProducts, 
+    getProducts, 
     createNewProduct, 
     getProductDetailsById, 
     updateProduct, 
