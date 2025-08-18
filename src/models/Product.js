@@ -27,43 +27,10 @@ const productSchema = new mongoose.Schema({
         min:0
     },
     category: {
-      type: String,
-      required: true,
-      enum: [
-        "Plants",
-        "Seeds",
-        "Planters & Pots",
-        "Stands",
-        "Tools & Accessories",
-        "Decor",
-        "Plant Care",
-      ],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
-    subcategory: {
-      type: String,
-      required: true,
-      enum: [
-        "Indoor Plants",
-        "Outdoor Plants",
-        "Flower Seeds",
-        "Vegetable Seeds",
-        "Herb Seeds",
-        "Terracotta Pots",
-        "Plastic Pots",
-        "Metal Planters",
-        "Hanging Planters",
-        "Plant Stands",
-        "Wooden Stands",
-        "Metal Stand",
-        "Hanging Chains",
-        "Sprayers",
-        "Gardening Tools",
-        "Bird Houses",
-        "Fertilisers",
-        "Plant Diet",
-        "Soil",
-      ],
-    }
+    subcategory: String,
 },
 { 
     timestamps: true 
