@@ -22,9 +22,12 @@ async function getAllProducts(req,res){
 
 //to create/add a new product
 async function createNewProduct(req, res){
-   console.log(req.files);
+   console.log(req.files + "this one");
    const {name, description, price, inStock, quantity, category, subcategory} = req.body;
-   const imagePaths = req?.files?.map(file => `/uploads/${file.filename}`);
+   
+   const imagePaths = req?.files?.map(file => 
+      `${req.protocol}://${req.get("host")}/uploads/${file.filename}`
+    );
 
    try{
         const response = await Product.create({

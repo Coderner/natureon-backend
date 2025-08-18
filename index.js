@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectToDb = require("./src/config/connection");
 const productRouter = require("./src/routes/products");
 const corsMiddleware = require("./src/middlewares/cors");
+const path = require("path");
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,8 @@ const app = express();
 connectToDb();
 
 //middlewares
+
+app.use("/uploads", express.static(path.join(__dirname,"src",  "uploads")));
 app.use(corsMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
