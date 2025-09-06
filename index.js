@@ -20,6 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //routes
+app.get('/', (req, res) => {
+  res.status(200).send('OK');
+});
 app.use("/products",productRouter);
 app.use("/categories",categoryRouter);
 
