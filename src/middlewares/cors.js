@@ -1,6 +1,6 @@
 const cors = require("cors");
 
-const corsMiddleware = require("cors")({
+const corsMiddleware = cors({
   origin: "*",
 });
 

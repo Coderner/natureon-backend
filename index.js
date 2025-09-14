@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectToDb = require("./src/config/connection");
+const adminRouter = require("./src/routes/admin");
 const productRouter = require("./src/routes/products");
 const categoryRouter = require("./src/routes/categories");
 const corsMiddleware = require("./src/middlewares/cors");
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended:true}));
 app.get('/', (req, res) => {
   res.status(200).send('OK');
 });
+app.use("/admin",adminRouter);
 app.use("/products",productRouter);
 app.use("/categories",categoryRouter);
 
