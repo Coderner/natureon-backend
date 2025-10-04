@@ -4,6 +4,7 @@ const connectToDb = require("./src/config/connection");
 const adminRouter = require("./src/routes/admin");
 const productRouter = require("./src/routes/products");
 const categoryRouter = require("./src/routes/categories");
+const orderRouter = require("./src/routes/order");
 const corsMiddleware = require("./src/middlewares/cors");
 const path = require("path");
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use("/admin",adminRouter);
 app.use("/products",productRouter);
 app.use("/categories",categoryRouter);
+app.use("/orders", orderRouter);
 
 app.listen((process.env.PORT),()=>{
     console.log(`Server started successfully at port ${process.env.PORT}`);
