@@ -33,6 +33,13 @@ async function handleSignUp (req,res){
         role: "USER"
      });
 
+     const payload = {
+      userId: newUser._id,
+      role: newUser.role,
+    };
+
+    const token = jwt.sign(payload,process.env.JWT_SECRET,{ expiresIn: process.env.JWT_EXPIRES_IN });
+
      const user = {
         _id : newUser._id,
         email : newUser.email,
@@ -43,7 +50,10 @@ async function handleSignUp (req,res){
      return res.status(201).json({
         success:true,
         message:"User Created Successfully!",
-        data: user
+        data: {
+         token,
+         user
+        },
      });
 
    }catch(err){
@@ -92,7 +102,15 @@ async function handleLogin (req, res){
        return res.status(200).json({
          success:true,
          message: "Login Successful",
-         data: token,
+         data: {
+            token,
+            user : {
+            _id : user._id,
+            email : user.email,
+            role: user.role,
+            createdAt: user.createdAt
+         }
+         },
          error:null
        });
        
